@@ -1,5 +1,4 @@
 public class Ejercicio9 {
-
     public static void main(String[] args) {
         int[][] coords;
         coords = new int[10][10];
