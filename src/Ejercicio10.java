@@ -17,6 +17,6 @@ public class Ejercicio10 {
                 freq = counter;
             }
         }
-        System.out.println("La moda es " +array[moda]+ " y aparece " + freq+ " veces.");
+        System.out.println("La moda es " +array[moda]+ " y aparece " +freq+ " veces.");
     }
 }
