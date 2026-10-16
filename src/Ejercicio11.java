@@ -1,5 +1,11 @@
 import java.util.Scanner;
 public class Ejercicio11 {
+
+    public static char EMPTY = '·';
+    public static char SHIP = 'S';
+    public static char WATER = 'O';
+    public static char SUNK = 'X';
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         boolean gameOver = false;
@@ -8,10 +14,13 @@ public class Ejercicio11 {
         int disparos = 0;
         int hundidos = 0;
         int numShips = 10;
+        int GOLD = 20;
+        int SILVER = 30;
+        int BRONZE = 40;
 
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
-                matrix[i][j] = ' ';
+                matrix[i][j] = EMPTY;
             }
         }
 
@@ -21,16 +30,25 @@ public class Ejercicio11 {
             printMatrix(matrix, false, disparos, hundidos);
             int row = getRow(input);
             int col = getCol(input);
-            if (matrix[row][col] == 'S') {
-                matrix[row][col] = 'X';
+            if (matrix[row][col] == SHIP) {
+                matrix[row][col] = SUNK;
                 hundidos++;
                 numShips--;
             } else {
-                matrix[row][col] = 'O';
+                matrix[row][col] = WATER;
             }
             disparos++;
             if (numShips <= 0) {
                 System.out.println("You win.");
+                if (disparos <= GOLD) {
+                    System.out.println("Your rank is GOLD.");
+                } else if (disparos <= SILVER) {
+                    System.out.println("Your rank is SILVER.");
+                } else if (disparos <= BRONZE) {
+                    System.out.println("Your rank is BRONZE.");
+                } else {
+                    System.out.println("Your rank was CARDBOARD");
+                }
                 gameOver = true;
             }
         }
@@ -49,8 +67,8 @@ public class Ejercicio11 {
                 if (debug) {
                     System.out.print(matrix[i][j] + " ");
                 } else {
-                    if (matrix[i][j] == 'S') {
-                        System.out.print("  ");
+                    if (matrix[i][j] == SHIP) {
+                        System.out.print("· ");
                     } else {
                         System.out.print(matrix[i][j] + " ");
                     }
@@ -65,16 +83,15 @@ public class Ejercicio11 {
         while (numShips < 10) {
             int row = (int) (Math.random() * matrix.length);
             int col = (int) (Math.random() * matrix[0].length);
-            if (matrix[row][col] != 'S') {
-                matrix[row][col] = 'S';
+            if (matrix[row][col] != SHIP) {
+                matrix[row][col] = SHIP;
                 numShips++;
             }
         }
     }
-
     static int getRow(Scanner input) {
         System.out.print("Dame la letra de la fila: ");
-        char letter = input.next().charAt(0);
+        char letter = input.next().toUpperCase().charAt(0);
         int row = letter - 65;
         return row;
     }
@@ -83,7 +100,4 @@ public class Ejercicio11 {
         int col = input.nextInt() - 1;
         return col;
     }
-
-
-
 }
